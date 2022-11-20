@@ -2,7 +2,7 @@ import React from 'react';
 
 const AppointmentOption = ({ appointmentOption, setTreatement }) => {
     const { name, slots } = appointmentOption;
-   
+   console.log(slots);
     return (
         <div className="hero shadow-xl rounded-xl py-6">
             <div className="hero-content text-center">
