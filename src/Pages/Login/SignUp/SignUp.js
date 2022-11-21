@@ -4,12 +4,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import useToken from '../../../hooks/useToken';
 
 const SignUp = () => {
     const { createUser, updateUser } = useContext(AuthContext);
     const [signupError, setSignupError] = useState('');
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit } = useForm();
+
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
+
+    if (token) {
+        navigate('/');
+    }
     const handleSignUp = data => {
         console.log(data);
         setSignupError('');
@@ -19,22 +27,39 @@ const SignUp = () => {
                 toast.success('Success Notification !', {
                     position: toast.POSITION.TOP_CENTER
                 });
-                
+
                 const userInfo = {
                     displayName: data.name
                 }
                 updateUser(userInfo)
                     .then(() => { })
                     .catch(error => console.log(error))
-                    navigate('/');
-                    console.log(user);
+                saveUser(data.name, data.email);
+                console.log(user);
             })
-            
+
             .catch(error => {
                 console.error(error);
                 setSignupError(error.message);
             })
     }
+
+    const saveUser = (name, email) => {
+        const user = { name, email };
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setCreatedUserEmail(email);
+            })
+    }
+
     return (
         <div className="card flex-shrink-0 w-1/4 mx-auto shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit(handleSignUp)} className="card-body">

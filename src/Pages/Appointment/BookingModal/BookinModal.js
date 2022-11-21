@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const BookinModal = ({ treatement, selectedDate, setTreatement, refetch }) => {
     const { user } = useContext(AuthContext);
     const { name, slots } = treatement;
-    console.log(slots);
     const date = format(selectedDate, 'PP')
 
     const handleBooking = event => {
@@ -45,7 +44,7 @@ const BookinModal = ({ treatement, selectedDate, setTreatement, refetch }) => {
                     });
                     refetch();
                 }
-                else{
+                else {
                     toast.error(data.message, {
                         position: toast.POSITION.TOP_CENTER
                     });
