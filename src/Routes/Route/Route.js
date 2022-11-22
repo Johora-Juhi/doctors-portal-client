@@ -3,8 +3,10 @@ import DashboardLayout from "../../Layouts/DashboardLayout/DashboardLayout";
 import Main from "../../Layouts/Main/Main";
 import About from "../../Pages/About/About";
 import Appointment from "../../Pages/Appointment/Appointment/Appointment";
+import AddDoctor from "../../Pages/Dashboard/AddDoctor/AddDoctor";
 import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
+import ManageDoctors from "../../Pages/Dashboard/ManageDoctors/ManageDoctors";
 import MyAppointments from "../../Pages/Dashboard/MyAppointments/MyAppointments";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login/Login";
@@ -46,11 +48,19 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element:<MyAppointments></MyAppointments>
+                element: <MyAppointments></MyAppointments>
             },
             {
                 path: '/dashboard/allUsers',
-                element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: '/dashboard/adddoctor',
+                element: <AdminRoute><AddDoctor></AddDoctor></AdminRoute>
+            },
+            {
+                path: '/dashboard/managedoctors',
+                element: <AdminRoute><ManageDoctors></ManageDoctors></AdminRoute>
             },
         ]
     }
